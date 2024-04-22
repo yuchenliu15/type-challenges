@@ -20,7 +20,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<T extends readonly (string|number|symbol)[]> = {
+  [t in T[number]]: t
+  // cannot do "[t in T]: t" bc T is an array literal type
+  // need to get the union by using T[number]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
