@@ -30,7 +30,10 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyOmit<T, K> = any
+type MyOmit<T, K extends keyof T> = {
+  // key remapping in condional mapping
+  [U in keyof T as U extends K ? never : U]: T[U] 
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
