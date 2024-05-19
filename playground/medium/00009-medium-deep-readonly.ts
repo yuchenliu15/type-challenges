@@ -36,8 +36,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type DeepReadonly<T> = any
+type DeepReadonly<T> = {
+  readonly [k in keyof T]: keyof T[k] extends never ? T[k] : DeepReadonly<T[k]>
+}; 
 
+type k = DeepReadonly<X1>;
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
