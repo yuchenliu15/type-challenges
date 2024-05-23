@@ -24,7 +24,10 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Last<T extends any[]> = any
+type Last<T extends any[]> = T extends [...infer _, infer K] ? K : never;
+
+// any here is just a placeholder to access length-1
+//type Last<T extends any[]> = [any, ...T][T['length']];
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -22,6 +22,9 @@
 
 type TupleToUnion<T extends Array<any>>= T extends Array<infer U> ? U : never;
 
+// since Array<'a' | 1> turns into type ('a' | 1)[]
+type test = Array<'a' | 1>;
+
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
