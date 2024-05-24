@@ -26,7 +26,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Pop<T extends any[]> = any
+type Pop<T extends any[]> = T extends [] ? []
+  : T extends [...infer J, infer K] ? J : never;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
