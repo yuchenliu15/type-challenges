@@ -29,7 +29,8 @@
 
 /* _____________ Your Code Here _____________ */
 
-type LookUp<U, T> = any
+// distributive conditional types
+type LookUp<U, T> = U extends { type: T} ? U : never;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
