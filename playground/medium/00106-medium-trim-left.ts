@@ -17,8 +17,9 @@
 */
 
 /* _____________ Your Code Here _____________ */
-
-type TrimLeft<S extends string> = any
+type ban = '\n' | '\t' | ' '
+type TrimLeft<S extends string> = 
+  S extends `${ban}${infer K}` ? TrimLeft<K> : S
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
