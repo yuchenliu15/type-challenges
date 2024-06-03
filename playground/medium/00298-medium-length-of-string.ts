@@ -11,8 +11,9 @@
 */
 
 /* _____________ Your Code Here _____________ */
-
-type LengthOfString<S extends string> = any
+// can't do string['length'] because string is evaluated at run time
+type LengthOfString<S extends string, T extends Array<any> =[] > =
+  S extends `${string}${infer R}` ? LengthOfString<R, [...T,string]> : T['length']
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
