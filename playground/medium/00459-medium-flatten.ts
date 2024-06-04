@@ -18,7 +18,14 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Flatten = any
+type Flatten<A extends Array<any>> = 
+  A extends [] 
+    ? [] 
+    : A extends [infer F, ...infer R] 
+        ? F extends Array<any> 
+          ? [...Flatten<F>, ...Flatten<R>]
+          : [F, ...Flatten<R>]
+        : never 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
