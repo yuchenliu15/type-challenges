@@ -12,10 +12,24 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Diff<O, O1> = any
+type Diff<O extends object, O1 extends object> = {
+    [K in keyof O | keyof O1 as K extends keyof Intersection<O, O1>
+      ? never :
+      K
+
+  ]: K extends keyof O 
+          ? O[K] 
+          : K extends keyof O1 
+            ? O1[K] 
+            : never
+
+}
+//type Diff<O extends object, O1 extends object> = 
+//  Omit<O & O1, keyof (O | O1)>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
+import type { Intersection } from 'utility-types'
 
 type Foo = {
   name: string
@@ -30,8 +44,8 @@ type Coo = {
   name: string
   gender: number
 }
-
-type cases = [
+//type t = Diff<Foo, Bar>
+//type cases = [
   Expect<Equal<Diff<Foo, Bar>, { gender: number }>>,
   Expect<Equal<Diff<Bar, Foo>, { gender: number }>>,
   Expect<Equal<Diff<Foo, Coo>, { age: string, gender: number }>>,
