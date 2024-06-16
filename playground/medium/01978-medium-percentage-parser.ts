@@ -32,7 +32,14 @@
 
 /* _____________ Your Code Here _____________ */
 
-type PercentageParser<A extends string> = any
+// use infer in a generic type <T>
+type Prefix<T> = T extends '+'|'-' ? T : never
+type Postfix<T> = T extends `${infer N}%` ? [N, '%'] : [T, '']
+type PercentageParser<A extends string> = 
+  A extends `${Prefix<infer P>}${infer R}`
+    ? [P, ...Postfix<R>]
+    : ['', ...Postfix<A>]
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
