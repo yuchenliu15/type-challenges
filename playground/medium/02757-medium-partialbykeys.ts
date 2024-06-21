@@ -26,7 +26,15 @@
 
 /* _____________ Your Code Here _____________ */
 
-type PartialByKeys<T, K> = any
+
+type Obj<T> = {
+  [K in keyof T]: T[K]
+}
+type PartialByKeys<T, K extends keyof T=any> = Obj<{
+  [Key in keyof T as Key extends K ? Key : never]?: T[Key]
+} & {
+  [Key in Exclude<keyof T, K>]: T[Key]
+}>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
