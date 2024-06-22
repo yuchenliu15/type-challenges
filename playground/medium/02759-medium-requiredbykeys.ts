@@ -27,7 +27,15 @@
 
 /* _____________ Your Code Here _____________ */
 
-type RequiredByKeys<T, K> = any
+// Obj<T> flattens intersection type
+type Obj<T> = {
+  [Key in keyof T]: T[Key]
+}
+type RequiredByKeys<T extends object, K extends keyof T=keyof T> = Obj<{
+  [Key in keyof T]: T[Key]
+} & {
+  [Key in K]-?: T[Key] // -? removes optional
+}>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
