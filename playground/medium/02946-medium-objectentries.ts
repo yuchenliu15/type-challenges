@@ -22,8 +22,9 @@
 */
 
 /* _____________ Your Code Here _____________ */
-
-type ObjectEntries<T> = any
+type ObjectEntries<T> = {
+  [Key in keyof Required<T>]: [Key, [T[Key]] extends [undefined] ? undefined : Required<T>[Key]]
+}[keyof T]
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
