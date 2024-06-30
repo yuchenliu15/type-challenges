@@ -25,7 +25,13 @@
 
 /* _____________ Your Code Here _____________ */
 
-type GreaterThan<T extends number, U extends number> = any
+type ArrayWithLength<T extends number, U extends any[] = []> =
+  U['length'] extends T ? U : ArrayWithLength<T, [true, ...U]>
+type GreaterThan<T extends number, U extends number> =
+  ArrayWithLength<U> extends [...ArrayWithLength<T>, ...infer _]
+    ? false
+    : true
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
