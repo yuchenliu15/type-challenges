@@ -22,9 +22,14 @@
 
 /* _____________ Your Code Here _____________ */
 
-type All = any
+type All<T, U> =
+  T extends [infer F, ...infer R]
+    ? Equal<F, U> extends true 
+      ? All<R, U>
+      : false 
+    : true
 
-/* _____________ Test Cases _____________ */
+    /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
 type cases = [
